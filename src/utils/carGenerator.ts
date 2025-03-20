@@ -44,3 +44,25 @@ export async function generateCarV1(bytes: Uint8Array): Promise<Blob> {
 
     return new Blob([carV1Bytes], { type: 'application/octet-stream' });
 }
+
+export function createCarV2Header(carV1Bytes: Uint8Array): Uint8Array {
+    console.log("Creating CARv2 header...");
+
+    // Define the CARv2 magic bytes (0x63720200)
+    const magicBytes = new Uint8Array([0x63, 0x72, 0x02, 0x00]);
+    const reservedBytes = new Uint8Array(8); // 8 reserved bytes (zero-filled)
+
+    // Calculate index offset: Header (32 bytes) + CARv1 size
+    const indexOffset = 32 + carV1Bytes.length;
+    const indexOffsetBytes = new DataView(new ArrayBuffer(8));
+    indexOffsetBytes.setBigUint64(0, BigInt(indexOffset), true); // Little-endian
+
+    // Construct the CARv2 header (32 bytes total)
+    const carV2Header = new Uint8Array(32);
+    carV2Header.set(magicBytes, 0);
+    carV2Header.set(reservedBytes, 4);
+    carV2Header.set(new Uint8Array(indexOffsetBytes.buffer), 12);
+
+    console.log("CARv2 header created successfully.");
+    return carV2Header;
+}
