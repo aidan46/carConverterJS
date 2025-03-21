@@ -1,26 +1,24 @@
-import React from 'react';
+import React from "react";
 
 interface DownloadButtonProps {
     url: string;
     fileName: string;
-    onDownloadComplete: () => void;
+    label: string;
 }
 
-const DownloadButton: React.FC<DownloadButtonProps> = ({ url, fileName, onDownloadComplete }) => {
+const DownloadButton: React.FC<DownloadButtonProps> = ({ url, fileName, label }) => {
     const handleDownload = () => {
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
         a.download = fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        onDownloadComplete();
     };
 
     return (
-        <button onClick={handleDownload} style={{ marginTop: '10px', padding: '10px 20px', cursor: 'pointer' }}>
-            Download {fileName}
+        <button onClick={handleDownload} style={{ margin: "10px", padding: "10px 20px", cursor: "pointer" }}>
+            {label}
         </button>
     );
 };

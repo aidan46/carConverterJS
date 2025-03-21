@@ -1,26 +1,28 @@
-import { useState } from 'react';
-import FileUploader from './components/FileUploader';
-import DownloadButton from './components/DownloadButton';
+import React, { useState } from "react";
+import FileUploader from "./components/FileUploader";
+import DownloadButton from "./components/DownloadButton";
 
 const App: React.FC = () => {
+  const [carV1Url, setCarV1Url] = useState<string | null>(null);
+  const [carV2Url, setCarV2Url] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
       <h2>Upload a File to Convert to CAR</h2>
       <FileUploader
-        onFileProcessed={(blob, newFileName) => {
-          const url = URL.createObjectURL(blob);
-          setDownloadUrl(url);
-          setFileName(newFileName);
+        onFilesProcessed={(carV1: string, carV2: string, originalFileName: string) => {
+          setCarV1Url(carV1);
+          setCarV2Url(carV2);
+          setFileName(originalFileName);
         }}
       />
-      {downloadUrl && fileName && (
-        <DownloadButton url={downloadUrl} fileName={fileName} onDownloadComplete={() => {
-          setDownloadUrl(null);
-          setFileName(null);
-        }} />
+
+      {carV1Url && carV2Url && fileName && (
+        <div style={{ marginTop: "10px" }}>
+          <DownloadButton url={carV1Url} fileName={`${fileName}_v1.car`} label="Download CARv1" />
+          <DownloadButton url={carV2Url} fileName={`${fileName}_v2.car`} label="Download CARv2" />
+        </div>
       )}
     </div>
   );

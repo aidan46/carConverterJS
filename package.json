@@ -14,12 +14,14 @@
     "@types/react-dom": "^19.0.4",
     "borc": "^3.0.0",
     "buffer": "^6.0.3",
+    "cbor2": "^1.12.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
     "sha2": "^1.0.2",
     "stream": "^0.0.3",
     "typescript": "^4.9.5",
+    "varint": "^6.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/varint": "^6.0.3"
   }
 }
