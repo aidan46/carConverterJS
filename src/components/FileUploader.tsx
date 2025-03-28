@@ -1,5 +1,5 @@
 import React from 'react';
-import { generateCarV1 } from '../utils/carGenerator';
+import { generateCarV1 } from '../car/carGenerator';
 
 interface FileUploaderProps {
     onFileProcessed: (blob: Blob, fileName: string) => void;
