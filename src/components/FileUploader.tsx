@@ -1,5 +1,5 @@
 import React from 'react';
-import { generateCarV1 } from '../utils/carGenerator';
+import { generateCarV1 } from '../car/carGenerator';
 
 interface FileUploaderProps {
     onFileProcessed: (blob: Blob, fileName: string) => void;
@@ -15,7 +15,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileProcessed }) => {
         }
 
         console.log("File selected:", file.name);
-        const newFileName = file.name.replace(/\.[^/.]+$/, '') + '.car';
+        const newFileName = 'js-' + file.name.replace(/\.[^/.]+$/, '') + '.car';
 
         const reader = new FileReader();
         reader.onload = async (e) => {
